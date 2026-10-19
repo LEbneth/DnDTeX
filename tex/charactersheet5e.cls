@@ -448,6 +448,10 @@
 \newcommand{\Skin}[1]{\def\@Skin{#1}}
 \newcommand{\Hair}[1]{\def\@Hair{#1}}
 
+\newif\ifCharacterAppearanceText
+\CharacterAppearanceTextfalse
+
+% Apperance Image
 \newsavebox\@CharacterAppearance
 \long\def\CharacterAppearance@content{}
 
@@ -457,6 +461,10 @@
 		\CharacterAppearance@content%
 	\end{lrbox}%
 }
+
+% Appearance Text
+\def\@CharacterAppearanceText{}
+\newcommand{\CharacterAppearanceText}[1]{\CharacterAppearanceTexttrue\long\def\@CharacterAppearanceText{#1}}
 
 %%% BACKSTORY %%%
 
@@ -1301,23 +1309,47 @@
 		
 		%Appearance — Image
 		\begin{scope}
-			\clip (0.54,1.825)%
-				node%
-					[%
-						append after command={%
-							(thisnode.north west) rectangle (thisnode.south east)%
-						},%
-						anchor=north west,%
-						text width=2.26in,%
-						%text depth=3.05in,%
-						minimum height=3.025in,
-						align=center,%
-						shape=rectangle,%
-					]%
-				(thisnode)%
-					{%
-						\usebox\@CharacterAppearance
-					};
+			\ifCharacterAppearanceText
+				\clip (0.54,1.825)%
+					node%
+						[%
+							append after command={%
+								(thisnode.north west) rectangle (thisnode.south east)%
+							},%
+							anchor=north west,%
+							text width=2.26in,%
+							text depth=5in,%
+							align=justify,%
+							shape=rectangle,%
+							draw=none%
+						]%
+					(thisnode)%
+						{%
+							%
+							\scriptsize%
+							%
+							\@CharacterAppearanceText
+							
+						};
+			\else
+				\clip (0.54,1.825)%
+					node%
+						[%
+							append after command={%
+								(thisnode.north west) rectangle (thisnode.south east)%
+							},%
+							anchor=north west,%
+							text width=2.26in,%
+							%text depth=3.05in,%
+							minimum height=3.025in,
+							align=center,%
+							shape=rectangle,%
+						]%
+					(thisnode)%
+						{%
+							\usebox\@CharacterAppearance
+						};
+			\fi
 		\end{scope}
 		
 		%Backstory

@@ -167,11 +167,17 @@ Fields describing the character appearance at the top of page two are:
 * `\Skin{<skin>}`
 * `\Hair{<hair>}`
 
-The larger "Character Appearance" box is defined with:
+The larger "Character Appearance" box provides two options:
+
+* `CharacterAppearanceText{<content>}`
+
+`<content>` here can be a text.
 
 * `CharacterAppearance{<content>}`
 
-`<content>` can be pretty much anything. In addition to text, it supports `\includegraphics` and, for the artistically inclined, TikZ pictures. By default, font formatting here may not match the rest of the document, so you might need to set it back to the correct font (presumably `\altsffamily`) manually.
+`<content>` here can be  `\includegraphics` and, for the artistically inclined, TikZ pictures.
+
+The two commands are mutually exclusive; if both are called, `CharacterAppearanceText` will be used and `CharacterAppearance` will be ignored.
 
 ### Page Two - Other
 
